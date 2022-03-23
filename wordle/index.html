@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>wordle</title>
+</head>
+<body>
+    <style>
+        input{
+            width: 50px;
+            height: 50px;
+            font-size: 40px;
+            text-align: center;
+        }
+    </style>
+
+    <input type="text" class="input" maxlength="1" onkeypress="return /[a-z]/i.test(event.key)">
+    <input type="text" class="input" maxlength="1" onkeypress="return /[a-z]/i.test(event.key)">
+    <input type="text" class="input" maxlength="1" onkeypress="return /[a-z]/i.test(event.key)">
+    <input type="text" class="input" maxlength="1" onkeypress="return /[a-z]/i.test(event.key)">
+    <input type="text" class="input" maxlength="1" onkeypress="return /[a-z]/i.test(event.key)">
+
+    <button type="submit" id="wordle_button">Submit</button>
+    
+</body>
+    <script>
+        
+        $('.input').keyup(function () {
+            if(this.value.length == this.maxLength) {
+                $(this).next('.input').focus();
+            }
+        });
+        
+        $('.input').keypress(function(event) {
+            if(event.keyCode === 13){
+                $("#wordle_button").click();
+            }
+        });
+        
+        
+        var answer = 'chair';
+        document.querySelector('button').addEventListener('click', 
+        function(){
+            var input = document.querySelectorAll('.input');
+            
+            for (let i = 0; i < 5; i++){
+                if (input[i].value == answer[i]){
+                    input[i].style.background = 'green';
+                    
+                } else if (answer.includes(input[i].value)){
+                    input[i].style.background = 'orange';
+                } else{
+                    input[i].style.background = 'lightgrey';
+                }
+                
+                input[i].classList.remove('input');
+            }
+            
+            var template = `
+            <div>
+            <input type="text" class="input" maxlength="1" onkeypress="return /[a-z]/i.test(event.key)">
+            <input type="text" class="input" maxlength="1" onkeypress="return /[a-z]/i.test(event.key)">
+            <input type="text" class="input" maxlength="1" onkeypress="return /[a-z]/i.test(event.key)">
+            <input type="text" class="input" maxlength="1" onkeypress="return /[a-z]/i.test(event.key)">
+            <input type="text" class="input" maxlength="1" onkeypress="return /[a-z]/i.test(event.key)">
+            </div>
+            `
+
+            document.querySelector('body').insertAdjacentHTML('beforeend', template);
+        }
+        )
+
+    </script>
+</html>
