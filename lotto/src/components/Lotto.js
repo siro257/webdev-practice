@@ -6,10 +6,14 @@ const Lotto = () => {
     const numbers = Array.from({ length: 45 }, (_, i) => i + 1);
 
     const generateLotto = () => {
-        // TODO ::: IMPROVE SHUFFLE & SELECTION
-        const shuffled = [...numbers]
-            .sort(() => 0.5 - Math.random())
-            .slice(0, 7);
+        for (var i = numbers.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = numbers[i];
+            numbers[i] = numbers[j];
+            numbers[j] = tmp;
+        }
+
+        const shuffled = numbers.slice(0, 7);
 
         const bonus = shuffled[6];
 
